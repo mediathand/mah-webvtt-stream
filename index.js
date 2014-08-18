@@ -22,6 +22,10 @@ function WebVttStream(options) {
 
       telxcc = spawn(__dirname+'/telxcc/telxcc', params, { stdout: ['pipe', 'pipe', 'ignore'] });
 
+      telxcc.stdin.on('error', function(err) {
+        if (err.code !== 'EPIPE') throw err;
+      });
+
       telxcc.stdout.on('data', function(chunk) {
         self.queue(chunk);
       });
