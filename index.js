@@ -18,6 +18,7 @@ function WebVttStream(options) {
 
       if (options.pid) params.push('-t', options.pid);
       if (options.teletextPage) params.push('-p', options.teletextPage);
+      if (options.endAfter) params.push('-e', options.endAfter);
 
       telxcc = spawn(__dirname+'/telxcc/telxcc', params, { stdout: ['pipe', 'pipe', 'ignore'] });
 
