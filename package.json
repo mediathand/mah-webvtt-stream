@@ -1,0 +1,36 @@
+{
+  "name": "webvtt-stream",
+  "version": "0.1.0",
+  "description": "Transform input stream to webvtt",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "./build.sh"
+  },
+  "bin": {
+    "telxcc": "./telxcc/telxcc"
+  },
+  "keywords": [
+    "stream",
+    "webvtt",
+    "hls"
+  ],
+  "author": "Gil Pedersen <git@gpost.dk>",
+  "license": "Commercial",
+  "private": true,
+  "dependencies": {
+    "through": "^2.3.4"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mediathand/mah-webvtt-stream.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mediathand/mah-webvtt-stream/issues"
+  },
+  "homepage": "https://github.com/mediathand/mah-webvtt-stream"
+}

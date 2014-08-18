@@ -1,0 +1,11 @@
+{
+  "name": "webvtt-stream",
+  "version": "0.1.0",
+  "dependencies": {
+    "through": {
+      "version": "2.3.4",
+      "from": "through@>=2.3.4-0 <3.0.0-0",
+      "resolved": "https://registry.npmjs.org/through/-/through-2.3.4.tgz"
+    }
+  }
+}
