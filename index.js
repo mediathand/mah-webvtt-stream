@@ -46,7 +46,7 @@ function WebVttStream(options) {
       });
     }
 
-    if (data && !closed)
+    if (data && !closed && telxcc.stdin.writable)
       telxcc.stdin.write(data);
   },
   function end () { //optional
