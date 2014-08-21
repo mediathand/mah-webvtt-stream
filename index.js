@@ -9,6 +9,7 @@ function WebVttStream(options) {
   options = options || {};
 
   var telxcc = null;
+  var closed = false;
 
   return through(function write(data) {
     var self = this;
@@ -21,6 +22,10 @@ function WebVttStream(options) {
       if (options.endAfter) params.push('-e', options.endAfter);
 
       telxcc = spawn(__dirname+'/telxcc/telxcc', params, { stdout: ['pipe', 'pipe', 'ignore'] });
+
+      telxcc.stdin.on('close', function() {
+        closed = true;
+      });
 
       telxcc.stdin.on('error', function(err) {
         if (err.code !== 'EPIPE') throw err;
@@ -41,7 +46,7 @@ function WebVttStream(options) {
       });
     }
 
-    if (data)
+    if (data && !closed)
       telxcc.stdin.write(data);
   },
   function end () { //optional
