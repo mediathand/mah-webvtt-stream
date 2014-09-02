@@ -1,5 +1,4 @@
-var util = require('util'),
-    spawn = require('child_process').spawn;
+var spawn = require('child_process').spawn;
 
 var through = require('through');
 
@@ -28,7 +27,7 @@ function WebVttStream(options) {
       });
 
       telxcc.stdin.on('error', function(err) {
-        if (err.code !== 'EPIPE') throw err;
+        if (err.code !== 'EPIPE' && err.code !== 'ECONNRESET') throw err;
       });
 
       telxcc.stdout.on('data', function(chunk) {
