@@ -2,10 +2,11 @@
   "name": "webvtt-stream",
   "version": "0.1.2",
   "description": "Transform input stream to webvtt",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "./build.sh"
+    "preinstall": "./build.sh",
+    "test": "lab -f -a code -t 94 -L",
+    "test-cov-html": "lab -f -a code -r html -o coverage.html"
   },
   "bin": {
     "telxcc": "./telxcc/telxcc"
@@ -27,7 +28,11 @@
   "directories": {
     "test": "test"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "code": "^3.0.2",
+    "concat-stream": "^1.5.1",
+    "lab": "^11.0.1"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mediathand/mah-webvtt-stream.git"
