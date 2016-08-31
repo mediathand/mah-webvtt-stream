@@ -1,6 +1,13 @@
-var fs = require('fs');
+'use strict';
 
-var WebVttStream = require('../index');
+const fs = require('fs');
 
-fs.createReadStream(__dirname + '/fixtures/test.ts').pipe(new WebVttStream({ endAfter: 3 })).pipe(process.stdout);
-fs.createReadStream(__dirname + '/fixtures/empty.ts').pipe(new WebVttStream()).pipe(process.stdout);
+const WebVttStream = require('../index');
+
+console.log('1:');
+fs.createReadStream(__dirname + '/fixtures/test.ts').pipe(new WebVttStream({ endAfter: 3 }))
+  .on('end', () => {
+    console.log('2:');
+    fs.createReadStream(__dirname + '/fixtures/empty.ts').pipe(new WebVttStream()).pipe(process.stdout);
+  })
+  .pipe(process.stdout);
