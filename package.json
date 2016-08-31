@@ -18,8 +18,11 @@
   "author": "Gil Pedersen <git@gpost.dk>",
   "license": "Commercial",
   "private": true,
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "dependencies": {
-    "through": "^2.3.4"
+    "through2": "^2.0.1"
   },
   "directories": {
     "test": "test"
