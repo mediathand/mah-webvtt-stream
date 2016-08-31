@@ -1,6 +1,6 @@
 {
   "name": "webvtt-stream",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "Transform input stream to webvtt",
   "main": "lib/index.js",
   "scripts": {
