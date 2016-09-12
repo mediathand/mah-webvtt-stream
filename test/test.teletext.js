@@ -7,6 +7,7 @@ const Path = require('path');
 const ConcatStream = require('concat-stream');
 const Code = require('code');
 const Lab = require('lab');
+const Through2 = require('through2');
 const WebVttStream = require('..');
 
 
@@ -46,6 +47,29 @@ describe('WebVttStream', () => {
         .pipe(ConcatStream({ encoding: 'buffer' }, (data) => {
 
             expect(data).to.equal(new Buffer(''));
+            done();
+        }));
+    });
+
+    it('handles early process exits', (done) => {
+
+        let flushCb;
+
+        Fs.createReadStream(internals.testPath)
+        .pipe(Through2((chunk, encoding, callback) => {
+
+            callback(null, chunk, encoding);
+        }, (callback) => {
+
+            flushCb = callback;
+        }))
+        .pipe(new WebVttStream({ endAfter: 1 })).on('end', () => {
+
+            flushCb();
+        })
+        .pipe(ConcatStream({ encoding: 'string' }, (data) => {
+
+            expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n');
             done();
         }));
     });
