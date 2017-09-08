@@ -31,24 +31,24 @@ describe('WebVttStream', () => {
     it('parses correctly', (done) => {
 
         Fs.createReadStream(internals.testPath)
-        .pipe(new WebVttStream())
-        .pipe(ConcatStream({ encoding: 'string' }, (data) => {
+            .pipe(new WebVttStream())
+            .pipe(ConcatStream({ encoding: 'string' }, (data) => {
 
-            expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n' +
+                expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n' +
                                   '00:02.080 --> 00:04.320 position:18% align:start\nDet er Frida,\nog det er Ida, og det er Ane.\n\n');
-            done();
-        }));
+                done();
+            }));
     });
 
     it('handles empty files', (done) => {
 
         Fs.createReadStream(Path.join(__dirname, 'fixtures', 'empty.ts'))
-        .pipe(new WebVttStream())
-        .pipe(ConcatStream({ encoding: 'buffer' }, (data) => {
+            .pipe(new WebVttStream())
+            .pipe(ConcatStream({ encoding: 'buffer' }, (data) => {
 
-            expect(data).to.equal(new Buffer(''));
-            done();
-        }));
+                expect(data).to.equal(new Buffer(''));
+                done();
+            }));
     });
 
     it('handles early process exits', (done) => {
@@ -56,22 +56,22 @@ describe('WebVttStream', () => {
         let flushCb;
 
         Fs.createReadStream(internals.testPath)
-        .pipe(Through2((chunk, encoding, callback) => {
+            .pipe(Through2((chunk, encoding, callback) => {
 
-            callback(null, chunk, encoding);
-        }, (callback) => {
+                callback(null, chunk, encoding);
+            }, (callback) => {
 
-            flushCb = callback;
-        }))
-        .pipe(new WebVttStream({ endAfter: 1 })).on('end', () => {
+                flushCb = callback;
+            }))
+            .pipe(new WebVttStream({ endAfter: 1 })).on('end', () => {
 
-            flushCb();
-        })
-        .pipe(ConcatStream({ encoding: 'string' }, (data) => {
+                flushCb();
+            })
+            .pipe(ConcatStream({ encoding: 'string' }, (data) => {
 
-            expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n');
-            done();
-        }));
+                expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n');
+                done();
+            }));
     });
 
     describe('option', () => {
@@ -79,58 +79,58 @@ describe('WebVttStream', () => {
         it('"pid" is respected', (done) => {
 
             Fs.createReadStream(internals.testPath)
-            .pipe(new WebVttStream({ pid: 256 }))
-            .pipe(ConcatStream({ encoding: 'string' }, (data) => {
+                .pipe(new WebVttStream({ pid: 256 }))
+                .pipe(ConcatStream({ encoding: 'string' }, (data) => {
 
-                expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n' +
+                    expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n' +
                                       '00:02.080 --> 00:04.320 position:18% align:start\nDet er Frida,\nog det er Ida, og det er Ane.\n\n');
 
-                Fs.createReadStream(internals.testPath)
-                .pipe(new WebVttStream({ pid: 200 }))
-                .pipe(ConcatStream({ encoding: 'string' }, (data2) => {
+                    Fs.createReadStream(internals.testPath)
+                        .pipe(new WebVttStream({ pid: 200 }))
+                        .pipe(ConcatStream({ encoding: 'string' }, (data2) => {
 
-                    expect(data2).to.equal('');
-                    done();
+                            expect(data2).to.equal('');
+                            done();
+                        }));
                 }));
-            }));
         });
 
         it('"teletextPage" is respected', (done) => {
 
             Fs.createReadStream(internals.testPath)
-            .pipe(new WebVttStream({ teletextPage: 395 }))
-            .pipe(ConcatStream({ encoding: 'string' }, (data) => {
+                .pipe(new WebVttStream({ teletextPage: 395 }))
+                .pipe(ConcatStream({ encoding: 'string' }, (data) => {
 
-                expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n' +
+                    expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n' +
                                       '00:02.080 --> 00:04.320 position:18% align:start\nDet er Frida,\nog det er Ida, og det er Ane.\n\n');
 
-                Fs.createReadStream(internals.testPath)
-                .pipe(new WebVttStream({ teletextPage: 42 }))
-                .pipe(ConcatStream({ encoding: 'string' }, (data2) => {
+                    Fs.createReadStream(internals.testPath)
+                        .pipe(new WebVttStream({ teletextPage: 42 }))
+                        .pipe(ConcatStream({ encoding: 'string' }, (data2) => {
 
-                    expect(data2).to.equal('');
-                    done();
+                            expect(data2).to.equal('');
+                            done();
+                        }));
                 }));
-            }));
         });
 
         it('"endAfter" is respected', (done) => {
 
             Fs.createReadStream(internals.testPath)
-            .pipe(new WebVttStream({ endAfter: 3.5 }))
-            .pipe(ConcatStream({ encoding: 'string' }, (data) => {
+                .pipe(new WebVttStream({ endAfter: 3.5 }))
+                .pipe(ConcatStream({ encoding: 'string' }, (data) => {
 
-                expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n' +
+                    expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n' +
                                       '00:02.080 --> 00:04.320 position:18% align:start\nDet er Frida,\nog det er Ida, og det er Ane.\n\n');
 
-                Fs.createReadStream(internals.testPath)
-                .pipe(new WebVttStream({ endAfter: 1.9 }))
-                .pipe(ConcatStream({ encoding: 'string' }, (data2) => {
+                    Fs.createReadStream(internals.testPath)
+                        .pipe(new WebVttStream({ endAfter: 1.9 }))
+                        .pipe(ConcatStream({ encoding: 'string' }, (data2) => {
 
-                    expect(data2).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n');
-                    done();
+                            expect(data2).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n');
+                            done();
+                        }));
                 }));
-            }));
         });
     });
 });

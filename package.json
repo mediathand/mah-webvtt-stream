@@ -29,9 +29,9 @@
     "test": "test"
   },
   "devDependencies": {
-    "code": "^3.0.2",
+    "code": "^4.1.0",
     "concat-stream": "^1.5.1",
-    "lab": "^11.0.1"
+    "lab": "^14.2.2"
   },
   "repository": {
     "type": "git",
