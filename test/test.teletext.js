@@ -14,7 +14,7 @@ const WebVttStream = require('..');
 // Declare internals
 
 const internals = {
-    testPath: Path.join(__dirname, 'fixtures', 'test.ts')
+    testPath: Path.join(__dirname, 'fixtures', 'teletext.ts')
 };
 
 
