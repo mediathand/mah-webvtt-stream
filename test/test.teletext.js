@@ -4,6 +4,7 @@
 
 const Fs = require('fs');
 const Path = require('path');
+const Spawn = require('child_process').spawn;
 const ConcatStream = require('concat-stream');
 const Code = require('code');
 const Lab = require('lab');
@@ -23,10 +24,32 @@ const internals = {
 const lab = exports.lab = Lab.script();
 const describe = lab.describe;
 const it = lab.it;
+const afterEach = lab.afterEach;
 const expect = Code.expect;
 
 
 describe('WebVttStream', () => {
+
+    afterEach((done) => {
+
+        // Validate that file descriptors have been closed
+
+        const cmd = Spawn('lsof', ['-p', process.pid]);
+
+        cmd.stdout.pipe(ConcatStream({ encoding: 'string' }, (lsof) => {
+
+            let count = 0;
+            const lines = lsof.split('\n');
+            for (let i = 0; i < lines.length; ++i) {
+                count += lines[i].indexOf(internals.testPath) !== -1;
+            }
+
+            expect(count).to.equal(0);
+            done();
+        }));
+
+        cmd.stdin.end();
+    });
 
     it('parses correctly', (done) => {
 
