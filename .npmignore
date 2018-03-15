@@ -1,0 +1,4 @@
+*
+!lib/**
+!.npmignore
+!build.sh

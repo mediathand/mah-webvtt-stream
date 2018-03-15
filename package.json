@@ -1,5 +1,5 @@
 {
-  "name": "webvtt-stream",
+  "name": "@mediathand/webvtt-stream",
   "version": "1.0.2",
   "description": "Transform input stream to webvtt",
   "main": "lib/index.js",
@@ -16,9 +16,8 @@
     "webvtt",
     "hls"
   ],
-  "author": "Gil Pedersen <git@gpost.dk>",
-  "license": "Commercial",
-  "private": true,
+  "author": "Gil Pedersen <gil@mediathand.com>",
+  "license": "UNLICENSED",
   "engines": {
     "node": ">=4.0.0"
   },
