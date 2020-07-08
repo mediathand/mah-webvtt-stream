@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "preinstall": "./build.sh",
-    "test": "lab -f -a code -t 94 -L",
-    "test-cov-html": "lab -f -a code -r html -o coverage.html"
+    "test": "lab -f -a @hapi/code -t 94 -L",
+    "test-cov-html": "lab -f -a @hapi/code -r html -o coverage.html"
   },
   "bin": {
     "telxcc": "./telxcc/telxcc"
@@ -19,18 +19,19 @@
   "author": "Gil Pedersen <gil@mediathand.com>",
   "license": "UNLICENSED",
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=12.13.0"
   },
   "dependencies": {
-    "through2": "^2.0.1"
+    "through2": "^4.0.2"
   },
   "directories": {
     "test": "test"
   },
   "devDependencies": {
-    "code": "^4.1.0",
-    "concat-stream": "^1.5.1",
-    "lab": "^14.2.2"
+    "@hapi/code": "^8.0.1",
+    "@hapi/lab": "^22.0.4",
+    "concat-stream": "^2.0.0",
+    "eslint": "^7.4.0"
   },
   "repository": {
     "type": "git",
