@@ -2,13 +2,15 @@
 
 // Load modules
 
+const Spawn = require('child_process').spawn;
 const Fs = require('fs');
 const Path = require('path');
-const Spawn = require('child_process').spawn;
+const { Transform } = require('stream');
+
 const ConcatStream = require('concat-stream');
+
 const Code = require('@hapi/code');
 const Lab = require('@hapi/lab');
-const Through2 = require('through2');
 const WebVttStream = require('..');
 
 
@@ -80,17 +82,19 @@ describe('WebVttStream', () => {
         let flushCb;
 
         const data = await internals.concat(Fs.createReadStream(internals.testPath)
-            .pipe(Through2((chunk, encoding, callback) => {
+            .pipe(new Transform({
+                transform(chunk, encoding, done) {
 
-                callback(null, chunk, encoding);
-            }, (callback) => {
+                    done(null, chunk, encoding);
+                },
+                flush(done) {
 
-                flushCb = callback;
+                    flushCb = done;
+                }
             }))
-            .pipe(new WebVttStream({ endAfter: 1 })).on('end', () => {
-
-                flushCb();
-            }));
+            .pipe(new WebVttStream({ endAfter: 1 }))
+            .on('end', () => flushCb())
+        );
 
         expect(data).to.equal('WEBVTT\nX-TIMESTAMP-MAP=LOCAL:00:00.000,MPEGTS:1072442970\n\n');
     });

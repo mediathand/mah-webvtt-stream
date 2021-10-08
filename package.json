@@ -19,17 +19,14 @@
   "author": "Gil Pedersen <gil@mediathand.com>",
   "license": "UNLICENSED",
   "engines": {
-    "node": ">=12.13.0"
-  },
-  "dependencies": {
-    "through2": "^4.0.2"
+    "node": ">=14.17.0"
   },
   "directories": {
     "test": "test"
   },
   "devDependencies": {
     "@hapi/code": "^8.0.1",
-    "@hapi/lab": "^22.0.4",
+    "@hapi/lab": "^24.3.2",
     "concat-stream": "^2.0.0",
     "eslint": "^7.4.0"
   },
